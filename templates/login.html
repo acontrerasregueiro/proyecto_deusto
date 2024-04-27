@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+ 
+{% block container %}
+<h1 class="text-center" style="padding-top:25px">Añadir Usuarios</h1>  
+<form class="col-6 justify-content-center" style="margin:0 auto; margin-top:20px"
+action="{{ url_for('registrar') }}" method="post">
+  <!-- Email input -->
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input type="email" id="email" class="form-control"placeholder="Email" name="email"/>
+  </div>
+
+  <!-- Password input -->
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input type="password" id="contrasena" class="form-control"placeholder="Contraseña" name="contrasena" />
+  </div>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input id="nombre" class="form-control"placeholder="Nombre" name="nombre"/>
+  </div>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input type="text" id="apellido1" class="form-control"placeholder="1er Apellido" name="apellido1" />
+  </div>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input type="text" id="apellido2" class="form-control"placeholder="2º Apellido" name="apellido2" />
+  </div>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input type="text" id="telefono" class="form-control"placeholder="Telefono" name="telefono"/>
+
+  </div>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input type="text" id="edad" class="form-control"placeholder="edad" name="edad"/>
+  </div>
+
+  <!-- Submit button -->
+  <button class="btn btn-info btn-block mb-4" type="submit">Guardar</button> 
+  <a href="/" class="btn btn-secondary float-end" role="button">Volver</a>
+</form>
+{% endblock %}

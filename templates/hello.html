@@ -1,0 +1,57 @@
+
+<!doctype html>
+
+<script src="{{ url_for('static', filename='/cookies.js') }}"></script>
+<script type="text/javascript">
+
+
+
+function getHello() {
+    const url = 'http://localhost:5000/protected'
+    token = getCookie('access_token') 
+    token = 'Bearer ' + token
+//const headers = { 'Authorization': token}; // auth header with bearer token
+    headers = {'Authorization': token}
+    fetch(url,{method: "POST", headers})
+    .then(response => response.json())  
+    .then(json => {
+        console.log(json);
+        //document.getElementById("demo").innerHTML = JSON.stringify(json)
+    })
+}
+
+
+
+async function sendbearer(){  
+token = getCookie('access_token') 
+token = 'Bearer ' + token
+headers = {'Authorization': token}
+console.log(headers)
+const url = 'http://localhost:5000/protected'
+ fetch('http://localhost:5000/protected',{headers})
+    .then(response => response.json())
+    .then(data => console.log(data))
+    //.catch(error => console.log(error))
+}
+
+function printurl(){
+    url = 'http://localhost:5000/protected?access_token=' + getCookie('access_token')
+    console.log("URL : ", url)
+}
+async function makeRequestWithJWT() {
+window.location.href = "http://localhost:5000/protected";
+}
+
+</script>
+
+<title>Hello LOGGED IN from Flask</title>
+  <h1>ESTAMOS EN HELLO</h1>
+<button class="btn" type="" class="btn btn-primary">Register</button>
+<a id="link1" class="buttom" onClick= sendbearer()> 1 here</a>
+<a id="link1" class="buttom" onClick= getHello()> GET PROTECTED  ************ here</a>
+<a id="link1" class="buttom" onClick= makeRequestWithJWT()> GET UNPROTECTED</a>
+<a id="link2" class="bottom" href="{{url_for('holita')}}"> HOLITA</a>
+<a id="link2" class="bottom" href="/protected"> user que es protected</a>
+<input id="tokenField" type="hidden" value ="Bearer " + getCookie('access_token') />
+<input id="submitButton" type="button" />
+

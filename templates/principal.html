@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+ 
+{% block container %}
+<table class="table">
+    <thead>
+        <tr>
+            {% for column in df.columns %}
+                <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in df.itertuples() %}
+            <tr>
+                {% for cell in row[1:] %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

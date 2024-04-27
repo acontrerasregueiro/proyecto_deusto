@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+ 
+{% block container %}
+<form class="col-6 justify-content-center" style="margin:0 auto; margin-top:20px">
+  <!-- Email input -->
+  <p class="text-uppercase">INTRODUZCA SUS CREDENCIALES POR DEFECTO test/test</p>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input type="email" id="form2Example1" class="form-control"placeholder="test" />
+  </div>
+
+  <!-- Password input -->
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input type="password" id="form2Example2" class="form-control"placeholder="test" />
+  </div>
+
+  <!-- Submit button -->
+  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block mb-4">LOGIN</button>
+
+  <!-- Register buttons -->
+</form>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+ 
+{% block container %}
+<div class="col-6 justify-content-center" style="margin:0 auto; margin-top:20px">
+
+<h1 class="text-center" style="padding-top:25px">Editar Usuario</h1>  
+    <form class="col-6 justify-content-center" style="margin:0 auto; margin-top:20px"
+    action="{{ url_for('registrar') }}" method="post">
+    <!-- Email input -->
+    <div data-mdb-input-init class="form-outline mb-1">
+        <label for="email">Email address</label>
+        <input type="email" id="email" class="form-control" name="email" value={{datos["email"]}}>
+    </div>
+    <!-- Password input -->
+    <div data-mdb-input-init class="form-outline mb-1">
+        <label for="email" style="margin-top:-10px">Contraseña</label>
+        <input type="text" id="contrasena" class="form-control" name="contrasena" value={{datos["contrasena"]}}>
+    </div>
+    <div data-mdb-input-init class="form-outline mb-1">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" class="form-control"  name="nombre" value={{datos["nombre"]}} onClick=alert({{datos["nombre"]}})>
+    </div>
+    <div data-mdb-input-init class="form-outline mb-1">
+        <label for="apellido1">Primer Apellido</label>
+        <input type="text" id="apellido1" class="form-control"  name="apellido1" value={{datos["apellido1"]}}>
+    </div>
+    <div data-mdb-input-init class="form-outline mb-1">
+        <label for="apellido2">Segundo Apellido</label>
+        <input type="text" id="apellido2" class="form-control"  name="apellido2" value={{datos["apellido2"]}}>
+    </div>
+    <div data-mdb-input-init class="form-outline mb-1">
+        <label for="telefono">Telefono</label>
+        <input type="text" id="telefono" class="form-control"  name="telefono" value={{datos["telefono"]}}>
+
+    </div>
+    <div data-mdb-input-init class="form-outline mb-4">
+        <label for="edad">Edad</label>
+        <input type="text" id="edad" class="form-control"placeholder="edad" name="edad"value={{datos["edad"]}}>
+    </div>
+
+    <!-- Submit button -->
+    <button class="btn btn-info btn-block mb-4" data-bs-toggle="modal" data-bs-target="#modal_guardar"type="button">Guardar</button>
+    <button class="btn btn-danger btn-block mb-4"data-bs-toggle="modal" data-bs-target="#modal_eliminar"  type="button">Eliminar</button>
+
+</button>
+    <a href="/" class="btn btn-secondary float-end" role="button">Volver</a>
+    </form>
+</div>
+
+
+
+{% endblock %}
+{%block modals%}
+
+<!-- Modal Eliminar-->
+<div class="modal fade" id="modal_eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Estas seguro de que deseas eliminar el registro </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <h3>Email : {{datos["email"]}} </h3>
+            <h3>Nombre : {{datos["nombre"]}}   {{datos["apellido1"]}}  {{datos["apellido2"]}}</h3>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-info me-auto">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Guardar-->
+<div class="modal fade" id="modal_guardar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Deseas guardar los cambios?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-footer">
+          <button type="button" class="btn btn-info  me-auto" >Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}
+
