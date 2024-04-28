@@ -1,31 +1,38 @@
 {% extends 'base.html' %}
  
 {% block container %}
-<h1 class="text-center" style="padding-top:10px">Listado de usuarios</h1>
-<table class="table" >
-    <thead>
-        <tr>
-            {% for column in data.columns %}
-                <th>{{ column.title() }}</th>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for row in data.itertuples() %}
+    <h1 class="text-center" style="padding-top:10px">Listado de usuarios</h1>
+    {% if mensaje_control != '' %}
+        <h4 class="text-secondary">{{mensaje_control}}</h4>
+    {% endif %}
+    <table class="table" >
+        <thead>
             <tr>
-                {% for cell in row[1:] %}
-                    <td>{{ cell }}</td>
+                {% for column in data.columns %}
+                    <th>{{ column.title() }}</th>
                 {% endfor %}
-                  <!-- href="{{url_for('ver',id = row['id'])}}" -->
-                <td> 
-                    <a href="{{url_for('ver',id = row['id'])}}">
-                        <i class="bi bi-pencil-square" id={{row['id']}}></i>
-                    </a>
-                </td>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
-   <a href="/anadir" class="btn btn-info" role="button">Añadir Usuarios</a> 
-   <a href="/" class="btn btn-secondary float-end" role="button">Volver</a>
+        </thead>
+        <tbody>
+            {% for row in data.itertuples() %}
+                <tr>
+                    {% for cell in row[1:] %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                    <td> 
+                        <a href="{{url_for('ver',id = row['id'])}}">
+                            <i class="bi bi-pencil-square" id={{row['id']}}></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="padding-top:20px">
+
+    <a href="/anadir" class="btn btn-info" role="button">Añadir usuario</a>
+    <a href="/" class="btn btn-secondary float-end" role="button">Volver</a>
+    </div>     
+</div>
+    
 {% endblock %}

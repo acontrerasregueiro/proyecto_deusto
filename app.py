@@ -22,28 +22,25 @@ jwt = JWTManager(app)
 def contenido():    
     data = fichero.leer_fichero()
     if isinstance(data,str):
-        #Si nos devuelve un string ("error") es que no se encuentra el fichero
+         #Si nos devuelve un string ("error") es que no se encuentra el fichero
         return render_template('vacio.html')
     else:
-        return render_template('contenido.html',data=data)
+        mensaje_control = ''
+        return render_template('contenido.html',data=data, mensaje_control = mensaje_control)
 
 @app.route('/registrar', methods=['POST'])
 def registrar():
-    fichero.crear_fichero(request.form) 
-    return jsonify(request.form), 200   
+    if(fichero.crear_fichero(request.form)):
+        mensaje_control = 'Usuario creado correctamente'
+        
+    else:
+        mensaje_control = 'Ha ocurrido un error, no se ha podido crear el usuario'
+    return render_template('login.html',mensaje_control = mensaje_control) 
+  
 
 @app.route('/ver/<id>', methods = ['GET']) 
-def ver(id): #Definimos una función llamada Inicio
-    #Todos = Persona.leer_contacto('id', 'all') 
-    #return render_template('/index.html', Todos = Todos, index_ver = index) #Retornornamos el template + Todos
-    print('id : ', id)
-    print('indice : ',fichero.buscar_registro(id))
-    #datos = fichero.leer_registro(fichero.buscar_registro(id))
-    #print(type(datos))
-    #datos = json.loads(datos)
-    #print(type(datos))
+def ver(id): 
     datos = json.loads(fichero.buscar_registro(id))
-    print('datos ' ,datos)
     return render_template('editar.html',datos = datos)   
 
 @app.route('/', methods=['GET'])
@@ -92,6 +89,23 @@ def user():
     current_user = get_jwt_identity()
     return render_template('user.html')
 
+@app.route('/eliminar', methods =['POST'])
+def eliminar():
+    mensaje_control = fichero.borrar_registro(request.form['id'])
+    data = fichero.leer_fichero()
+    return render_template('contenido.html',data=data, mensaje_control = mensaje_control)
+
+@app.route('/actualizar', methods =['POST'])
+def actualizar():
+    print("estamos en actualizar")
+    fichero.borrar_registro(request.form['id']) #Borramos el registro
+    if (fichero.crear_fichero(request.form)):#Creamos el nuevo actualizado
+        mensaje_control = "Registro actualizado correctamente"
+    data = fichero.leer_fichero()
+    return render_template('contenido.html',data=data, mensaje_control = mensaje_control)
+
+  
+    
 
 @app.route('/register',methods=['GET'])
 def register():

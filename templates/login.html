@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
  
 {% block container %}
-<h1 class="text-center" style="padding-top:25px">Añadir Usuarios</h1>  
+<h1 class="text-center" style="padding-top:25px">Añadir Usuarios</h1> 
 <form class="col-6 justify-content-center" style="margin:0 auto; margin-top:20px"
 action="{{ url_for('registrar') }}" method="post">
+{% if mensaje_control != '' %}
+    <h4 class="text-secondary">{{mensaje_control}}</h4>
+{% endif %}
+
   <!-- Email input -->
   <div data-mdb-input-init class="form-outline mb-4">
     <input type="email" id="email" class="form-control"placeholder="Email" name="email"/>

@@ -7,7 +7,6 @@ def crear_fichero(formulario):
     print("dentro de crear json")
     #comprobamos si existe el fichero
     if os.path.exists("archivo.txt"):
-        print("existe")
         #si no existe lo creamos        
         formulario = dict(formulario)
         formulario['id'] = uuid.uuid4().hex
@@ -15,15 +14,16 @@ def crear_fichero(formulario):
         formulario = json.dumps(formulario)
         fichero = open("archivo.txt", "a")
         fichero.write(formulario + '\n')
+        return True
     else:
         #si existe añadimos contenido al final
-        print("NO EXISTE")
         with open('archivo.txt', 'w') as fichero:
             formulario = dict(formulario)
             formulario['id'] = uuid.uuid4().hex
             print(formulario)
             formulario = json.dumps(formulario)
             fichero.write(formulario + '\n')
+            return True
     fichero.close()
     
 def leer_fichero():
@@ -37,16 +37,6 @@ def leer_fichero():
     else:
         return "error" 
     
-# def cuenta_lineas():
-#     #Devuelve el número de lineas ya que lo utilizaremos como id
-#     lines = 0
-#     with open('archivo.txt','r') as fichero:
-#         for line in fichero:
-#             lines = lines + 1
-#     print('numero de lineas :',lines)
-#     fichero.close()
-#     return lines
-
 def buscar_registro(id):
     #Buscamos el la linea que contiene el id y devolvemos su indice
     fichero = open('archivo.txt','r+')
@@ -62,8 +52,21 @@ def buscar_registro(id):
     fichero.close() 
     return registro 
  
-def cargar_registro(indice):
-    pass
+def borrar_registro(id):
+    print("estamos en borrar registro id a borrar :", id)
+    mensaje_control = 'Registro no encontrado'
+    
+    with open("archivo.txt", "r") as fichero:
+       lineas = fichero.readlines()
+    fichero.close()
+    with open("archivo.txt", "w") as fichero:
+        for linea in lineas:
+            if (id) not in linea:
+                fichero.write(linea)
+            else:
+                mensaje_control = "Registro encontrado y borrado correctamente" 
+    fichero.close()
+    return(mensaje_control)
 
 def leer_registro(indice):
     #Accedemos directamente a la línea indice y leemos sus datos
